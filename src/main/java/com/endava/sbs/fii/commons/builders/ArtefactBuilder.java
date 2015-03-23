@@ -20,7 +20,7 @@ public class ArtefactBuilder {
 	public static Artist anArtist() {
 		Artist artist = new Artist();
 		artist.setName("Metallica");
-		artist.setOrigin("callifornia, USA");
+		artist.setOrigin("Callifornia, USA");
 		artist.setLaunchDate(new Date());
 		artist.setGenders(genders());
 		artist.setAlbums(albums());
@@ -30,7 +30,18 @@ public class ArtefactBuilder {
 	public static Artist anArtistWithoutGenders() {
 		Artist artist = new Artist();
 		artist.setName("Metallica");
-		artist.setOrigin("callifornia, USA");
+		artist.setOrigin("Callifornia, USA");
+		artist.setLaunchDate(new Date());
+		artist.setGenders(new HashSet<Gender>());
+		artist.setAlbums(albums());
+		return artist;
+	}
+	
+	public static Artist anArtistWithId() {
+		Artist artist = new Artist();
+		artist.setId(1L);
+		artist.setName("Metallica");
+		artist.setOrigin("Callifornia, USA");
 		artist.setLaunchDate(new Date());
 		artist.setGenders(new HashSet<Gender>());
 		artist.setAlbums(albums());
@@ -79,14 +90,19 @@ public class ArtefactBuilder {
 	
 	public static List<Artist> multipleArtists(){
 		List<Artist> artists = new ArrayList<Artist>();
-		artists.add(anArtist("Mettalica", anAlbum("St. Anger")));
+		artists.add(anArtist("Metalica", anAlbum("St. Anger")));
 		artists.add(anArtist("Iron Maiden", anAlbum("Fear of the dark")));
 		artists.add(anArtist("AC/DC", anAlbum("Highway to Hell")));
 		artists.add(anArtist("System of a down", anAlbum("Toxicity")));
-		for (Artist artist : artists){
-			System.out.println(artist.getAlbums().get(0).getTitle());
-		}
-
+		return artists;
+	}
+	
+	public static List<Artist> multipleArtistsWithId(){
+		List<Artist> artists = new ArrayList<Artist>();
+		artists.add(anArtistWithId(1L,"Metalica", anAlbum("St. Anger")));
+		artists.add(anArtistWithId(2L,"Iron Maiden", anAlbum("Fear of the dark")));
+		artists.add(anArtistWithId(3L,"AC/DC", anAlbum("Highway to Hell")));
+		artists.add(anArtistWithId(4L,"System of a down", anAlbum("Toxicity")));
 		return artists;
 	}
 
@@ -106,6 +122,20 @@ public class ArtefactBuilder {
 		List<Album> albums = new ArrayList<Album>();
 		albums.add(anAlbum);
 		
+		artist.setAlbums(albums);
+		return artist;
+	}
+	
+	public static Artist anArtistWithId(Long id, String name, Album anAlbum) {
+		Artist artist = new Artist();
+		artist.setId(id);
+		artist.setName(name);
+		artist.setLaunchDate(new Date());
+		artist.setGenders(genders());
+		
+		//albums
+		List<Album> albums = new ArrayList<Album>();
+		albums.add(anAlbum);
 		
 		artist.setAlbums(albums);
 		return artist;
